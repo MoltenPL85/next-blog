@@ -3,7 +3,7 @@ import FeaturedPosts from '../conponents/home-page/featured-posts';
 import Hero from '../conponents/home-page/hero';
 import { Post } from '../interfaces';
 
-const DUMMY_POSTS: Post[] = [
+export const DUMMY_POSTS: Post[] = [
   {
     slug: 'getting-started-with-nestjs',
     title: 'Getting Started with NestJS',
