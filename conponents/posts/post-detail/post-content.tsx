@@ -3,7 +3,8 @@ import Image from 'next/image';
 import PostHeader from './post-header';
 import classes from './post-content.module.css';
 import { Post } from '../../../interfaces';
-import { ElementType } from 'react';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 interface PostContentProps {
   post: Post;
@@ -42,6 +43,17 @@ const PostContent = ({ post }: PostContentProps) => {
       }
 
       return <p>{paragraph.children}</p>;
+    },
+
+    code(code) {
+      const { language, value } = code;
+      return (
+        <SyntaxHighlighter
+          style={atomDark}
+          language={language}
+          children={value}
+        />
+      );
     },
   };
 

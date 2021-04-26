@@ -6,7 +6,7 @@ import { Post } from '../interfaces';
 import { getFeaturedPosts } from '../lib/posts-util';
 
 interface HomePageProps {
-  posts?: Post[];
+  posts: Post[];
 }
 
 const HomePage = ({ posts }: HomePageProps) => {
