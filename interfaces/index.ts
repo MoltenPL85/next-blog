@@ -7,3 +7,10 @@ export interface Post {
   isFeatured: boolean;
   content?: string;
 }
+
+export interface Contact {
+  id?: string;
+  email: string;
+  name: string;
+  message: string;
+}
