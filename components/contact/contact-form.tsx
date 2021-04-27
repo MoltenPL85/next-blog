@@ -54,8 +54,6 @@ const ContactForm = () => {
   const sendMessageHandler = async (event: FormEvent) => {
     event.preventDefault();
 
-    // mb some validation
-
     setRequestStatus('pending');
 
     try {

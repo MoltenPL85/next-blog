@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import FeaturedPosts from '../conponents/home-page/featured-posts';
-import Hero from '../conponents/home-page/hero';
+import FeaturedPosts from '../components/home-page/featured-posts';
+import Hero from '../components/home-page/hero';
 import { Post } from '../interfaces';
 import { getFeaturedPosts } from '../lib/posts-util';
 

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
-import Layout from '../conponents/layout/layout';
+import Layout from '../components/layout/layout';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {

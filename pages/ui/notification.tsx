@@ -1,6 +1,5 @@
 import ReactDOM from 'react-dom';
-import { Status } from '../../conponents/contact/contact-form';
-
+import { Status } from '../../components/contact/contact-form';
 import classes from './notification.module.css';
 
 export interface NotificationProps {
@@ -22,13 +21,17 @@ const Notification = ({ title, message, status }: NotificationProps) => {
 
   const cssClasses = `${classes.notification} ${statusClasses}`;
 
-  return ReactDOM.createPortal(
-    <div className={cssClasses}>
-      <h2>{title}</h2>
-      <p>{message}</p>
-    </div>,
-    document.getElementById('notifications')
-  );
+  if (typeof window === 'object') {
+    return ReactDOM.createPortal(
+      <div className={cssClasses}>
+        <h2>{title}</h2>
+        <p>{message}</p>
+      </div>,
+      document.getElementById('notifications')
+    );
+  }
+
+  return <div />;
 };
 
 export default Notification;

@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
-import PostContent from '../../conponents/posts/post-detail/post-content';
+import PostContent from '../../components/posts/post-detail/post-content';
 import { Post } from '../../interfaces';
 import { getPostData, getPostsFiles } from '../../lib/posts-util';
 

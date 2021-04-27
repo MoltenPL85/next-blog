@@ -27,7 +27,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     let client: MongoClient;
     try {
       client = await MongoClient.connect(
-        `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.naz8h.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+        `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@cluster0.naz8h.mongodb.net/${process.env.mongodb_database}?retryWrites=true&w=majority`,
         {
           useUnifiedTopology: true,
           useNewUrlParser: true,
