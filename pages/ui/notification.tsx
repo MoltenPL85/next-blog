@@ -31,7 +31,7 @@ const Notification = ({ title, message, status }: NotificationProps) => {
     );
   }
 
-  return <div />;
+  return null;
 };
 
 export default Notification;
