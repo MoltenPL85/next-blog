@@ -1,11 +1,43 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { Contact } from '../../interfaces';
+import Notification, { NotificationProps } from '../../pages/ui/notification';
 import classes from './contact-form.module.css';
+
+export type Status = 'pending' | 'success' | 'error';
+
+const sendContactData = async (contactDetails: Contact) => {
+  const response = await fetch('/api/contact', {
+    method: 'POST',
+    body: JSON.stringify(contactDetails),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || 'Something went wrong!');
+  }
+};
 
 const ContactForm = () => {
   const [enteredEmail, setEnteredEmail] = useState('');
   const [enteredName, setEnteredName] = useState('');
   const [enteredMessage, setEnteredMessage] = useState('');
+  const [requestStatus, setRequestStatus] = useState<Status>();
+  const [requestError, setRequestError] = useState();
+
+  useEffect(() => {
+    if (requestStatus === 'success' || requestStatus === 'error') {
+      const timer = setTimeout(() => {
+        setRequestStatus(null);
+        setRequestError(null);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [requestStatus]);
 
   const changeEmailHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setEnteredEmail(event.target.value);
@@ -19,23 +51,54 @@ const ContactForm = () => {
     setEnteredMessage(event.target.value);
   };
 
-  const sendMessageHandler = (event: FormEvent) => {
+  const sendMessageHandler = async (event: FormEvent) => {
     event.preventDefault();
 
     // mb some validation
 
-    fetch('/api/contact', {
-      method: 'POST',
-      body: JSON.stringify({
+    setRequestStatus('pending');
+
+    try {
+      await sendContactData({
         email: enteredEmail,
         name: enteredName,
         message: enteredMessage,
-      } as Contact),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+      });
+      setRequestStatus('success');
+      setEnteredMessage('');
+      setEnteredName('');
+      setEnteredEmail('');
+    } catch (err) {
+      setRequestError(err);
+      setRequestStatus('error');
+    }
   };
+
+  let notification: NotificationProps;
+
+  if (requestStatus === 'pending') {
+    notification = {
+      status: 'pending',
+      title: 'Sending message...',
+      message: 'Your message is on its way!',
+    };
+  }
+
+  if (requestStatus === 'success') {
+    notification = {
+      status: 'success',
+      title: 'Success!',
+      message: 'Message sent successfully!',
+    };
+  }
+
+  if (requestStatus === 'error') {
+    notification = {
+      status: 'error',
+      title: 'Error!',
+      message: requestError,
+    };
+  }
 
   return (
     <section className={classes.contact}>
@@ -77,6 +140,13 @@ const ContactForm = () => {
           <button>Send message</button>
         </div>
       </form>
+      {notification && (
+        <Notification
+          status={notification.status}
+          title={notification.title}
+          message={notification.message}
+        />
+      )}
     </section>
   );
 };

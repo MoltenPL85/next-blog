@@ -5,6 +5,7 @@ import '../styles/globals.css';
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Layout>
+      <div id="notifications" />
       <Component {...pageProps} />
     </Layout>
   );
