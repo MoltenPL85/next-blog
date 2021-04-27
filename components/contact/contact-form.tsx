@@ -67,7 +67,7 @@ const ContactForm = () => {
       setEnteredName('');
       setEnteredEmail('');
     } catch (err) {
-      setRequestError(err);
+      setRequestError(err.message);
       setRequestStatus('error');
     }
   };
