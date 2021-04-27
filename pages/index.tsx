@@ -1,5 +1,5 @@
 import { GetStaticProps } from 'next';
-import React from 'react';
+import Head from 'next/head';
 import FeaturedPosts from '../conponents/home-page/featured-posts';
 import Hero from '../conponents/home-page/hero';
 import { Post } from '../interfaces';
@@ -12,6 +12,13 @@ interface HomePageProps {
 const HomePage = ({ posts }: HomePageProps) => {
   return (
     <>
+      <Head>
+        <title>Max' Blog</title>
+        <meta
+          name="description"
+          content="Posts about programming and web development"
+        />
+      </Head>
       <Hero />
       <FeaturedPosts posts={posts} />
     </>
